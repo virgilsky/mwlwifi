@@ -230,14 +230,15 @@ static void mwl_process_of_dts(struct mwl_priv *priv)
 		if (strcmp(prop->name, "marvell,5ghz") == 0)
 			priv->disable_5g = true;
 		if (strcmp(prop->name, "marvell,chainmask") == 0) {
-			prop_value = be32_to_cpu(*((__be32 *)prop->value));
+			prop_value = 2;
+			/*prop_value = be32_to_cpu(*((__be32 *)prop->value));*/
 			if (prop_value == 2)
 				priv->antenna_tx = ANTENNA_TX_2;
 			else if (prop_value == 3)
 				priv->antenna_tx = ANTENNA_TX_3;
 
-			prop_value = be32_to_cpu(*((__be32 *)
-						 (prop->value + 4)));
+			/*prop_value = be32_to_cpu(*((__be32 *)
+						 (prop->value + 4)));*/
 			if (prop_value == 2)
 				priv->antenna_rx = ANTENNA_RX_2;
 			else if (prop_value == 3)
@@ -468,14 +469,14 @@ static void mwl_set_vht_caps(struct mwl_priv *priv,
 
 	band->vht_cap.vht_supported = 1;
 
-	if (priv->chip_type == MWL8964) {
+	/*if (priv->chip_type == MWL8964) {
 		band->vht_cap.cap |= IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_11454;
 		band->vht_cap.cap |= IEEE80211_VHT_CAP_SHORT_GI_160;
 		band->vht_cap.cap |= IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160MHZ;
 	} else
-		band->vht_cap.cap |= IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_3895;
+		band->vht_cap.cap |= IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_3895;*/
 	band->vht_cap.cap |= IEEE80211_VHT_CAP_RXLDPC;
-	band->vht_cap.cap |= IEEE80211_VHT_CAP_SHORT_GI_80;
+	/*band->vht_cap.cap |= IEEE80211_VHT_CAP_SHORT_GI_80;
 	band->vht_cap.cap |= IEEE80211_VHT_CAP_RXSTBC_1;
 	if (priv->antenna_tx != ANTENNA_TX_1) {
 		band->vht_cap.cap |= IEEE80211_VHT_CAP_SU_BEAMFORMER_CAPABLE;
@@ -485,32 +486,32 @@ static void mwl_set_vht_caps(struct mwl_priv *priv,
 	}
 	band->vht_cap.cap |= IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
 	if (priv->chip_type == MWL8964)
-		band->vht_cap.cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;
+		band->vht_cap.cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;*/
 	band->vht_cap.cap |= IEEE80211_VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_MASK;
-	band->vht_cap.cap |= IEEE80211_VHT_CAP_RX_ANTENNA_PATTERN;
+	/*band->vht_cap.cap |= IEEE80211_VHT_CAP_RX_ANTENNA_PATTERN;
 	band->vht_cap.cap |= IEEE80211_VHT_CAP_TX_ANTENNA_PATTERN;
 	if (priv->chip_type == MWL8997) {
 		if (priv->antenna_tx != ANTENNA_TX_1)
 			band->vht_cap.cap |= IEEE80211_VHT_CAP_TXSTBC;
-	}
+	}*/
 
 	if (priv->antenna_rx == ANTENNA_RX_1)
-		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xfffe);
+		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xfffd);
 	else if (priv->antenna_rx == ANTENNA_RX_2)
-		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xfffa);
+		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xfff5);
 	else
-		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xffea);
+		band->vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(0xffd5);
 
 	if (priv->antenna_tx == ANTENNA_TX_1) {
-		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xfffe);
+		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xfffd);
 		antenna_num = 1;
 	} else if (priv->antenna_tx == ANTENNA_TX_2) {
-		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xfffa);
+		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xfff5);
 		antenna_num = 2;
 	} else
-		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xffea);
+		band->vht_cap.vht_mcs.tx_mcs_map = cpu_to_le16(0xffd5);
 
-	if (band->vht_cap.cap & (IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE |
+	/*if (band->vht_cap.cap & (IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE |
 	    IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE)) {
 		band->vht_cap.cap |=
 			((antenna_num - 1) <<
@@ -524,7 +525,7 @@ static void mwl_set_vht_caps(struct mwl_priv *priv,
 			((antenna_num - 1) <<
 			IEEE80211_VHT_CAP_SOUNDING_DIMENSIONS_SHIFT) &
 			IEEE80211_VHT_CAP_SOUNDING_DIMENSIONS_MASK;
-	}
+	}*/
 }
 
 static void mwl_set_caps(struct mwl_priv *priv)

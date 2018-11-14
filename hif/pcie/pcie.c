@@ -51,8 +51,10 @@ static struct mwl_chip_info pcie_chip_tbl[] = {
 		.fw_image	= "mwlwifi/88W8864.bin",
 		.cal_file	= NULL,
 		.txpwrlmt_file  = NULL,
-		.antenna_tx	= ANTENNA_TX_4_AUTO,
-		.antenna_rx	= ANTENNA_RX_4_AUTO,
+		/*.antenna_tx	= ANTENNA_TX_4_AUTO,
+		.antenna_rx	= ANTENNA_RX_4_AUTO,*/
+		.antenna_tx	= ANTENNA_TX_2,
+		.antenna_rx	= ANTENNA_RX_2,
 	},
 	[MWL8897] = {
 		.part_name	= "88W8897",
